@@ -1,0 +1,1 @@
+# fox-i3status-config
