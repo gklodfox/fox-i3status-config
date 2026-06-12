@@ -23,7 +23,7 @@ format = " $weather $icon [$temp : {{$temp_fmin}-{$temp_fmax}|Unavailable}] $loc
 format_alt = " $icon_ffin Forecast (9 hour avg) "
 [block.service]
 name = "openweathermap"
-api_key = 
+api_key =
 city_id = "3096444"
 units = "metric"
 forecast_hours = 9
