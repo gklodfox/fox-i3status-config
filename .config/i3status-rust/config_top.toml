@@ -1,0 +1,53 @@
+icons_format = " {icon} "
+
+[theme]
+theme = "ctp-mocha"
+[theme.overrides]
+idle_bg = "#ff007b"
+idle_fg = "#000000"
+warning_bg = "#c4005f"
+warning_fg = "#3b0000"
+info_bg = "#eb0072"
+info_fg = "#00273b"
+separator = ""
+
+[icons]
+icons = "awesome4"
+[icons.overrides]
+bat = ["|E|", "|_|", "|=|", "|F|"]
+bat_charging = "|^| "
+
+[[block]]
+block = "weather"
+format = " $weather $icon [$temp : {{$temp_fmin}-{$temp_fmax}|Unavailable}] $location [$sunrise.datetime(f:'%R') - $sunset.datetime(f:'%R')] "
+format_alt = " $icon_ffin Forecast (9 hour avg) "
+[block.service]
+name = "openweathermap"
+api_key = "94d7040bb3f210600b19cde4fef30399"
+city_id = "3096444"
+units = "metric"
+forecast_hours = 9
+[block.theme_overrides]
+idle_fg = "#ff007b"
+idle_bg = "#011017"
+
+[[block]]
+block = "uptime"
+interval = 1
+format = " $icon $uptime.duration(units:3,hms:true)  "
+[block.theme_overrides]
+idle_fg = "#940045"
+idle_bg = "#360015"
+
+[[block]]
+block = "time"
+interval = 10
+format = "   $timestamp.datetime(f:'%F') "
+[block.theme_overrides]
+idle_fg = "#ff007b"
+idle_bg = "#940045"
+
+[[block]]
+block = "time"
+interval = 1
+format = " $icon $timestamp.datetime(f:'%R:%S') "
