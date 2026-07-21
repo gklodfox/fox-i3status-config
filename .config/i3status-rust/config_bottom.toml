@@ -20,11 +20,6 @@ bat = ["|E|", "|_|", "|=|", "|F|"]
 bat_charging = "|^| "
 
 [[block]]
-block = "focused_window"
-format = "$title.str(w:100)"
-# max_width = 100
-
-[[block]]
 block = "custom"
 command = "echo "
 [block.theme_overrides]
@@ -34,6 +29,19 @@ idle_fg = "#00aaff"
 block = "nvidia_gpu"
 interval = 1
 format = "$icon $utilization.eng(w:3) $temperature $clocks.eng(w:4) "
+[block.theme_overrides]
+idle_fg = "#ff007b"
+idle_bg = "#011017"
+good_fg = "#00ffaa"
+good_bg = "#011017"
+warning_fg = "#ff0000"
+warning_bg = "#011017"
+alert_fg = "#ff003e"
+alert_bg = "#011017"
+info_fg = "#ff003e"
+info_bg = "#011017"
+critical_fg = "#ff0000"
+critical_bg = "#011017"
 
 [[block]]
 block = "custom"
@@ -44,6 +52,8 @@ idle_fg = "#00aaff"
 [[block]]
 block = "net"
 format = "$icon $device {$signal_strength $ssid $frequency|$ip} "
+[block.theme_overrides]
+idle_fg = "#00aaff"
 
 [[block]]
 block = "custom"

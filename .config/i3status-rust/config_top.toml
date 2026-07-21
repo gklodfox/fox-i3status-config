@@ -18,8 +18,16 @@ bat = ["|E|", "|_|", "|=|", "|F|"]
 bat_charging = "|^| "
 
 [[block]]
+block = "focused_window"
+format = "$title.str(max_w:90)"
+[block.theme_overrides]
+idle_fg = "#00aaff"
+idle_bg = "#000000"
+
+
+[[block]]
 block = "weather"
-format = " $weather $icon [$temp : {{$temp_fmin}-{$temp_fmax}|Unavailable}] $location [$sunrise.datetime(f:'%R') - $sunset.datetime(f:'%R')] "
+format = " $weather$icon [$temp:{{$temp_fmin}-{$temp_fmax}|Unavailable}] $location [$sunrise.datetime(f:'%R')-$sunset.datetime(f:'%R')] "
 format_alt = " $icon_ffin Forecast (9 hour avg) "
 [block.service]
 name = "openweathermap"
@@ -42,7 +50,8 @@ idle_bg = "#360015"
 [[block]]
 block = "time"
 interval = 10
-format = "   $timestamp.datetime(f:'%F') "
+format = "   $timestamp.datetime(f:'%a %d %b %Y') "
+# format_alt = "   $timestamp.datetime(f:'%a %m %F') "
 [block.theme_overrides]
 idle_fg = "#ff007b"
 idle_bg = "#940045"
@@ -51,3 +60,5 @@ idle_bg = "#940045"
 block = "time"
 interval = 1
 format = " $icon $timestamp.datetime(f:'%R:%S') "
+[block.theme_overrides]
+idle_fg = "#004488"
