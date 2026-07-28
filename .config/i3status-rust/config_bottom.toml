@@ -1,63 +1,109 @@
-icons_format = " {icon} "
+icons_format = "{icon}"
 
 [theme]
 theme = "ctp-mocha"
 [theme.overrides]
+idle_bg = "#000000"
 idle_fg = "#ff007b"
-idle_bg = "#011017"
-warning_fg = "#ff0000"
-warning_bg = "#011017"
-alert_fg = "#ff003e"
-alert_bg = "#011017"
-info_fg = "#ff003e"
-info_bg = "#011017"
-separator = ""
+info_bg = "#000000"
+info_fg = "#00aaff"
+good_bg = "#000000"
+good_fg = "#00ffaa"
+warning_bg = "#000000"
+warning_fg = "#ffaa00"
+critical_bg = "#000000"
+critical_fg = "#ff0044"
+separator = "\ue0b7"
+separator_bg = "auto"
+separator_fg = "#ff007b"
 
 [icons]
-icons = "awesome4"
-[icons.overrides]
-bat = ["|E|", "|_|", "|=|", "|F|"]
-bat_charging = "|^| "
+icons = "material-nf"
+
+[[block]]
+block = "music"
+format = " $icon  {<span color='#ff007b'>$combo.str(max_w:50,rot_interval:0.5)</span> $volume_icon $volume $prev $play $next  |}"
+interface_name_exclude = [".*kdeconnect.*", "mpd"]
+seek_step_secs = 10
+[[block.click]]
+button = "up"
+action = "volume_up"
+[[block.click]]
+button = "down"
+action = "volume_down"
+[[block.click]]
+button = "forward"
+action = "seek_forward"
+[[block.click]]
+button = "back"
+action = "seek_backward"
 
 [[block]]
 block = "custom"
-command = "echo "
+command = "~/.config/i3status-rust/scripts/phone_status.sh"
+json = true
+interval = 2
+[[block.click]]
+button = "left"
+cmd = "~/.config/i3status-rust/scripts/phone_connect.sh"
+update = true
+[block.theme_overrides]
+idle_fg = "#888888"
+
+[[block]]
+block = "custom"
+command = "~/.config/i3status-rust/scripts/note_status.sh"
+json = true
+# note_detect.py rewrites this file every ~0.65s while listening, so
+# watch_files gives near-instant updates without polling; interval is just
+# a safety net to reset a frozen display if the listener dies uncleanly.
+watch_files = ["/run/user/1000/i3status-note-state"]
+interval = 5
+[[block.click]]
+button = "left"
+cmd = "~/.config/i3status-rust/scripts/note_detect.py"
+update = true
+[block.theme_overrides]
+idle_fg = "#00aaff"
+
+[[block]]
+block = "custom"
+command = "~/.config/i3status-rust/scripts/chord_status.sh"
+json = true
+# chord_detect.py rewrites this file roughly twice a second while listening,
+# so watch_files gives near-instant updates without polling; interval is
+# just a safety net to reset a frozen display if the listener dies uncleanly.
+watch_files = ["/run/user/1000/i3status-chord-state"]
+interval = 5
+[[block.click]]
+button = "left"
+cmd = "~/.config/i3status-rust/scripts/chord_detect.py"
+update = true
+[block.theme_overrides]
+idle_fg = "#ffaa00"
+
+[[block]]
+block = "sound"
+format = " {$volume.eng(w:2)|} $icon  "
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"
+
+[[block]]
+block = "memory"
+format = " $mem_avail.eng(w:4) $icon  "
+format_alt = " $icon_swap  $swap_free.eng(w:4) "
 [block.theme_overrides]
 idle_fg = "#00aaff"
 
 [[block]]
 block = "nvidia_gpu"
 interval = 1
-format = "$icon $utilization.eng(w:3) $temperature $clocks.eng(w:4) "
-[block.theme_overrides]
-idle_fg = "#ff007b"
-idle_bg = "#011017"
-good_fg = "#00ffaa"
-good_bg = "#011017"
-warning_fg = "#ff0000"
-warning_bg = "#011017"
-alert_fg = "#ff003e"
-alert_bg = "#011017"
-info_fg = "#ff003e"
-info_bg = "#011017"
-critical_fg = "#ff0000"
-critical_bg = "#011017"
-
-[[block]]
-block = "custom"
-command = "echo "
-[block.theme_overrides]
-idle_fg = "#00aaff"
+format = " $utilization.eng(w:2) $icon  $temperature "
 
 [[block]]
 block = "net"
-format = "$icon $device {$signal_strength $ssid $frequency|$ip} "
-[block.theme_overrides]
-idle_fg = "#00aaff"
-
-[[block]]
-block = "custom"
-command = "echo "
+format = " $device $icon  {$signal_strength $ssid $frequency|$ip} "
 [block.theme_overrides]
 idle_fg = "#00aaff"
 
@@ -69,47 +115,7 @@ alert_unit = "GB"
 interval = 20
 warning = 20.0
 alert = 10.0
-format = "$icon /: $available.eng(w:2) "
-
-[[block]]
-block = "disk_space"
-path = "/boot"
-info_type = "available"
-alert_unit = "GB"
-interval = 20
-warning = 1.0
-alert = 0.5
-format = "/boot: $available.eng(w:2) "
-
-[[block]]
-block = "custom"
-command = "echo "
-[block.theme_overrides]
-idle_fg = "#00aaff"
-
-[[block]]
-block = "memory"
-format = "$icon $mem_used.eng(w:4)/$mem_total.eng(w:4) $icon_swap $swap_used.eng(w:4)/$swap_total.eng(w:4) "
-format_alt = "$icon $mem_used.eng(w:4)/$mem_total.eng(w:4) $icon_swap $swap_used.eng(w:4)/$swap_total.eng(w:4) "
-
-[[block]]
-block = "custom"
-command = "echo "
-[block.theme_overrides]
-idle_fg = "#00aaff"
-
-[[block]]
-block = "sound"
-format = "$icon {$volume.eng(w:2) |}"
-[[block.click]]
-button = "left"
-cmd = "pavucontrol"
-
-[[block]]
-block = "custom"
-command = "echo "
-[block.theme_overrides]
-idle_fg = "#00aaff"
+format = " /: $icon $available.eng(w:4) "
 
 [[block]]
 block = "cpu"
@@ -117,12 +123,16 @@ interval = 1
 info_cpu = 40
 warning_cpu = 50
 critical_cpu = 90
-format = "$icon $utilization.eng(w:3) $frequency.eng(w:4) $barchart "
-format_alt = "$icon [1: $utilization1.eng(w:3) $frequency1.eng(w:4)] [2: $utilization2.eng(w:3) $frequency2.eng(w:4)] [3: $utilization3.eng(w:3) $frequency3.eng(w:4)] [4: $utilization4.eng(w:3) $frequency4.eng(w:4)]"
+format = " $utilization.eng(w:2) $icon  $barchart "
+format_alt = " [$utilization1.eng(w:2) $utilization2.eng(w:2) $utilization3.eng(w:2) $utilization4.eng(w:2)] $icon  [$frequency1.eng(w:3) $frequency2.eng(w:3) $frequency3.eng(w:3) $frequency4.eng(w:3)] "
+[block.theme_overrides]
+idle_fg = "#00aaff"
 
 [[block]]
 block = "temperature"
-format = " $icon $max "
-format_alt = " $icon $min min, $max max, $average avg "
+format = " $max $icon "
+format_alt = " $min min, $max max, $average avg $icon "
 interval = 10
 chip = "*-isa-*"
+[block.theme_overrides]
+info_fg = "#ff007b"

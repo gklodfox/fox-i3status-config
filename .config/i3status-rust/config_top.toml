@@ -1,64 +1,56 @@
-icons_format = " {icon} "
+icons_format = "<span color='#00aaff'>{icon}</span>"
 
 [theme]
 theme = "ctp-mocha"
 [theme.overrides]
-idle_bg = "#ff007b"
-idle_fg = "#000000"
-warning_bg = "#c4005f"
-warning_fg = "#3b0000"
-info_bg = "#eb0072"
-info_fg = "#00273b"
-separator = ""
+idle_bg = "#000000"
+idle_fg = "#ff007b"
+info_bg = "#000000"
+info_fg = "#00aaff"
+good_bg = "#000000"
+good_fg = "#00ffaa"
+warning_bg = "#000000"
+warning_fg = "#ffaa00"
+critical_bg = "#000000"
+critical_fg = "#ff0044"
+separator = " "
+separator_bg = "auto"
+separator_fg = "#ff007b"
 
 [icons]
-icons = "awesome4"
-[icons.overrides]
-bat = ["|E|", "|_|", "|=|", "|F|"]
-bat_charging = "|^| "
+icons = "material-nf"
 
 [[block]]
 block = "focused_window"
-format = "$title.str(max_w:90)"
+format = "$title.str(max_w:60, rot_interval:0.3)"
 [block.theme_overrides]
 idle_fg = "#00aaff"
-idle_bg = "#000000"
 
 
 [[block]]
 block = "weather"
-format = " $weather$icon [$temp:{{$temp_fmin}-{$temp_fmax}|Unavailable}] $location [$sunrise.datetime(f:'%R')-$sunset.datetime(f:'%R')] "
-format_alt = " $icon_ffin Forecast (9 hour avg) "
+format = "$location $icon   $weather_verbose <span color='#00aaff'>$temp</span> [ {{<span color='#00aaff'>$temp_fmin</span>} - {<span color='#00aaff'>$temp_fmax</span>}|Unavailable} ]"
+format_alt = "$location $icon   $weather_verbose <span color='#00aaff'>$temp</span> [ <span color='#00aaff'>$sunrise.datetime(f:'%R')</span> - <span color='#00aaff'>$sunset.datetime(f:'%R')</span> ]"
+# autolocate = true
+# autolocate_interval = "once"
 [block.service]
 name = "openweathermap"
 api_key = "94d7040bb3f210600b19cde4fef30399"
-city_id = "3096444"
+coordinates = ["51.033748764899705","16.759589883095007"]
 units = "metric"
-forecast_hours = 9
-[block.theme_overrides]
-idle_fg = "#ff007b"
-idle_bg = "#011017"
+lang = "pl"
+forecast_hours = 12
 
 [[block]]
 block = "uptime"
+icons_format = "<span color='#00aaff'></span>"
 interval = 1
-format = " $icon $uptime.duration(units:3,hms:true)  "
-[block.theme_overrides]
-idle_fg = "#940045"
-idle_bg = "#360015"
+format = " <i><span color='#00aaff'>󰔟</span> $uptime.duration(units:3,hms:true)</i> "
 
 [[block]]
 block = "time"
-interval = 10
-format = "   $timestamp.datetime(f:'%a %d %b %Y') "
+interval = 1
+[block.format]
+full = "<b><span color='#00aaff'> </span></b><span color='#00aaff'> $timestamp.datetime(f:'%A', l:pl_PL)</span> <b>$timestamp.datetime(f:'%d', l:pl_PL)</b> <span color='#00aaff'>$timestamp.datetime(f:'%B/%m', l:pl_PL)</span> <b>$timestamp.datetime(f:'%Y', l:pl_PL)</b>  <b><span color='#00aaff'> </span>  $timestamp.datetime(f:'%R:%S', l:pl_PL)</b> "
+# format_alt = "$icon  $timestamp.datetime(f:'%A %F', l:pl_PL) "
 # format_alt = "   $timestamp.datetime(f:'%a %m %F') "
-[block.theme_overrides]
-idle_fg = "#ff007b"
-idle_bg = "#940045"
-
-[[block]]
-block = "time"
-interval = 1
-format = " $icon $timestamp.datetime(f:'%R:%S') "
-[block.theme_overrides]
-idle_fg = "#004488"
